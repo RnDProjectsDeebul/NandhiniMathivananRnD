@@ -11,8 +11,8 @@ In this research we improve the robustness of uncertainty estimation by modeling
   >
 </p>
 
--An unbiased evalution over state-of-the-art keypoint detection and the proposed methods using key-point detection datasets, like face recognition or object detection, is crucial.
--Hence in this research we focus on robustness study for uncertainty estimation for key-point detection task. 
+- An unbiased evalution over state-of-the-art keypoint detection and the proposed methods using key-point detection datasets, like face recognition or object detection, is crucial.
+- Hence in this research we focus on robustness study for uncertainty estimation for key-point detection task. 
 
 ## Problem Statement
 - The output of DNNs are stochastic in nature which involves randomness and uncertainties
