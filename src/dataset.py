@@ -65,20 +65,20 @@ class FaceKeypointDataset(Dataset):
         }
 
     # get the training and validation data samples
-    training_samples, valid_samples = train_test_split(f"{config.ROOT_PATH}/training/training.csv",
+training_samples, valid_samples = train_test_split(f"{config.ROOT_PATH}/training/training.csv",
                                                        config.TEST_SPLIT)
     # initialize the dataset - `FaceKeypointDataset()`
-    print('\n-------------- PREPARING DATA --------------\n')
-    train_data = FaceKeypointDataset(training_samples)
-    valid_data = FaceKeypointDataset(valid_samples)
-    print('\n-------------- DATA PREPRATION DONE --------------\n')
+print('\n-------------- PREPARING DATA --------------\n')
+train_data = FaceKeypointDataset(training_samples)
+valid_data = FaceKeypointDataset(valid_samples)
+print('\n-------------- DATA PREPRATION DONE --------------\n')
     # prepare data loaders
-    train_loader = DataLoader(train_data,
+train_loader = DataLoader(train_data,
                               batch_size=config.BATCH_SIZE,
                               shuffle=True)
-    valid_loader = DataLoader(valid_data,
+valid_loader = DataLoader(valid_data,
                               batch_size=config.BATCH_SIZE,
                               shuffle=False)
 
-    if config.SHOW_DATASET_PLOT:
-        utils.dataset_keypoints_plot(valid_data)
+if config.SHOW_DATASET_PLOT:
+     utils.dataset_keypoints_plot(valid_data)

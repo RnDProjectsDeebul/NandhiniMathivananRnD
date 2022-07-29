@@ -15,10 +15,14 @@ from model import FaceKeypointModel
 from dataset import train_data, train_loader, valid_data, valid_loader
 from tqdm import tqdm
 matplotlib.style.use('ggplot')
-
+import numpy as np
+import argparse
 
 # In[4]:
-
+parser = argparse.ArgumentParser()
+parser.add_argument('--lr-scheduler', dest='lr_scheduler', action='store_true')
+parser.add_argument('--early-stopping', dest='early_stopping', action='store_true')
+args = vars(parser.parse_args())
 
 # model 
 model = FaceKeypointModel().to(config.DEVICE)
@@ -27,6 +31,20 @@ optimizer = optim.Adam(model.parameters(), lr=config.LR)
 # we need a loss function which is good for regression like MSELoss
 criterion = nn.MSELoss()
 
+if args['lr_scheduler']:
+    print('INFO: Initializing learning rate scheduler')
+    lr_scheduler = LRScheduler(optimizer)
+    # change the accuracy, loss plot names and model name
+    loss_plot_name = 'lrs_loss'
+    acc_plot_name = 'lrs_accuracy'
+    model_name = 'lrs_model'
+if args['early_stopping']:
+    print('INFO: Initializing early stopping')
+    early_stopping = EarlyStopping()
+    # change the accuracy, loss plot names and model name
+    loss_plot_name = 'es_loss'
+    acc_plot_name = 'es_accuracy'
+    model_name = 'es_model'
 
 # In[5]:
 
@@ -95,7 +113,8 @@ for epoch in range(config.EPOCHS):
     val_loss.append(val_epoch_loss)
     print(f"Train Loss: {train_epoch_loss:.4f}")
     print(f'Val Loss: {val_epoch_loss:.4f}')
-
+new = np.vstack((train_loss,val_loss)).T
+np.savetxt("RMSE.csv", new, delimiter=",")
 
 # In[8]:
 
